@@ -67,7 +67,8 @@
                                             <td>{{ $account->first_name . ' ' . $account->last_name }}</td>
                                             <td>{{ $account->dob }}</td>
                                             <td>{{ $account->account_no }}</td>
-                                            <td>{{ $account->balance . ' ' . $account->currency }}</td>
+                                            <td>{{ number_format($account->balance, 2) . ' ' . $account->currency }}
+                                            </td>
                                             <td>
                                                 @if ($account->hasTransaction)
                                                     <a href="/transaction/detail/{{ $account->id }}"
@@ -83,8 +84,8 @@
                     @if (isset($user) && $user === true)
                         @if ($account)
                             <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-                                {{ __('Transfer Funds') }}
-                            </h3>
+                                {{ __('Transfer Funds ----------------- Balance: ' . number_format($account->balance, 2)) . ' USD. Account no: ' . $account->account_no }}
+                            </h3><br>
                             <form action="{{ route('funds.transfer') }}" method="POST">
                                 @csrf
                                 <input type="number" name="recipient_account_no" value=""

@@ -31,18 +31,21 @@
                                     <tr>
                                         <td>{{ $transaction->from_account }}</td>
                                         <td>{{ $transaction->to_account }}</td>
-                                        <td>{{ $transaction->amount }}</td>
+                                        <td>{{ number_format($transaction->amount, 2) }}</td>
                                         <td>{{ $transaction->amount_currency }}</td>
-                                        <td>{{ $transaction->payment_amt }}</td>
+                                        <td>{{ number_format($transaction->payment_amt, 2) }}</td>
                                         <td>{{ $transaction->payment_currency }}</td>
                                         @if ($account->account_no == $transaction->to_account)
                                             <td>Credit</td>
-                                            <td>{{ $transaction->to_account_bal_before_transfer }}</td>
-                                            <td>{{ $transaction->to_account_bal_after_transfer }}</td>
+                                            <td>{{ number_format($transaction->to_account_bal_before_transfer, 2) }}
+                                            </td>
+                                            <td>{{ number_format($transaction->to_account_bal_after_transfer, 2) }}</td>
                                         @else
                                             <td>Debit</td>
-                                            <td>{{ $transaction->from_account_bal_before_transfer }}</td>
-                                            <td>{{ $transaction->from_account_bal_after_transfer }}</td>
+                                            <td>{{ number_format($transaction->from_account_bal_before_transfer, 2) }}
+                                            </td>
+                                            <td>{{ number_format($transaction->from_account_bal_after_transfer, 2) }}
+                                            </td>
                                         @endif
                                         <td>{{ $transaction->description }}</td>
                                         <td>{{ $transaction->created_at }}</td>
