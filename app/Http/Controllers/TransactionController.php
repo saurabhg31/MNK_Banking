@@ -70,6 +70,11 @@ class TransactionController extends Controller
             $amountInUsd = $amount;
         }
 
+        if ($amountInUsd > $userAccount->balance) {
+            Session::flash('error', 'Insufficient balance.');
+            return back();
+        }
+
         try {
             DB::beginTransaction();
             $transfer = Transaction::transferAmount(

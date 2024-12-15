@@ -81,21 +81,28 @@
                         </div>
                     @endif
                     @if (isset($user) && $user === true)
-                        <h3 class="font-semibold text-xl text-gray-800 leading-tight">
-                            {{ __('Transfer Funds') }}
-                        </h3>
-                        <form action="{{route('funds.transfer')}}" method="POST">
-                            @csrf
-                            <input type="number" name="recipient_account_no" value="" placeholder="Account No." required>
-                            <input type="number" name="amount" step="0.01" value="" placeholder="Amount" required>
-                            <select name="currency" required>
-                                <option value="USD">USD</option>
-                                <option value="GBP">GBP</option>
-                                <option value="EUR">EUR</option>
-                            </select>
-                            <input type="text" name="description" value="" style="width: 40%;" placeholder="Description" required>
-                            <button type="submit" class="btn btn-primary">Initiate Transfer</button>
-                        </form>
+                        @if ($account)
+                            <h3 class="font-semibold text-xl text-gray-800 leading-tight">
+                                {{ __('Transfer Funds') }}
+                            </h3>
+                            <form action="{{ route('funds.transfer') }}" method="POST">
+                                @csrf
+                                <input type="number" name="recipient_account_no" value=""
+                                    placeholder="Account No." required>
+                                <input type="number" name="amount" step="0.01" value="" placeholder="Amount"
+                                    required>
+                                <select name="currency" required>
+                                    <option value="USD">USD</option>
+                                    <option value="GBP">GBP</option>
+                                    <option value="EUR">EUR</option>
+                                </select>
+                                <input type="text" name="description" value="" style="width: 40%;"
+                                    placeholder="Description" required>
+                                <button type="submit" class="btn btn-primary">Initiate Transfer</button>
+                            </form>
+                        @else
+                            <div class="alert alert-warning">No accounts created yet</div>
+                        @endif
                     @endif
                 </div>
             </div>

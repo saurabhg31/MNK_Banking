@@ -20,8 +20,8 @@
                                     <th scope="col">Transfer Amt after conversion</th>
                                     <th scope="col">To Currency</th>
                                     <th scope="col">Type</th>
-                                    <th scope="col">Balance before transfer</th>
-                                    <th scope="col">Balance after transfer</th>
+                                    <th scope="col">Balance before transfer (USD)</th>
+                                    <th scope="col">Balance after transfer (USD)</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Time</th>
                                 </tr>

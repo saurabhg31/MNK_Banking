@@ -17,13 +17,17 @@ class DashboardController extends Controller
         if ($isAdmin) {
             $users = User::select(['id', 'name'])->where('is_admin', false)->get();
             $accounts = Account::getAccountsWithUserNames();
+
+            $accountIds = $accounts->pluck('id');
+            $accountIdsWithTransactions = Transaction::getAccountIdsWithTransactions($accountIds);
+
             foreach ($accounts as $account) {
-                $account->hasTransaction = Transaction::hasTransactions($account->id);
+                $account->hasTransaction = in_array($account->id, $accountIdsWithTransactions);
             }
             return view('dashboard', compact('users', 'accounts'));
         }
         $user = true;
-        
-        return view('dashboard', compact('user'));
+        $account = Account::where('user_id', Auth::id())->first();
+        return view('dashboard', compact('user', 'account'));
     }
 }

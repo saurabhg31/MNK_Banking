@@ -57,4 +57,20 @@ class Transaction extends Model
 
         return true;
     }
+
+    public static function getAccountIdsWithTransactions($accountIds)
+    {
+        $accountIdsWithTransactions = self::select(['from_account_id', 'to_account_id'])->whereIn('from_account_id', $accountIds)
+            ->orWhereIn('to_account_id', $accountIds)->get();
+        $accountIdsWithTransactionsArr = [];
+        foreach ($accountIdsWithTransactions as $accountIdWithTransaction) {
+            if (!in_array($accountIdWithTransaction->from_account_id, $accountIdsWithTransactionsArr)) {
+                array_push($accountIdsWithTransactionsArr, $accountIdWithTransaction->from_account_id);
+            }
+            if (!in_array($accountIdWithTransaction->to_account_id, $accountIdsWithTransactionsArr)) {
+                array_push($accountIdsWithTransactionsArr, $accountIdWithTransaction->to_account_id);
+            }
+        }
+        return $accountIdsWithTransactionsArr;
+    }
 }
